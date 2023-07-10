@@ -1,0 +1,7 @@
+float2 tex = frac(float2(uv.x * grid.x, uv.y * grid.y));
+
+if(tex.x >= dim.x || tex.x <= -dim.x ||
+tex.y >= dim.y || tex.y <= -dim.y)
+return(0);
+
+return(1);

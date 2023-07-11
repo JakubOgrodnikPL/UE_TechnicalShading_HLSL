@@ -5,3 +5,21 @@ tex.y >= dim.y || tex.y <= -dim.y)
 return(0);
 
 return(1);
+
+
+///////////////////////////////////////////////////////////////////////
+
+float result = 0;
+
+for(int i=0; i<nSides; i++)
+{
+    for(int j=0; j<nCopies; j++)
+    {
+        float angle = (i/nSides) * (time) * 3.14;
+        float2 pos = center + (j/nCopies) * radius *float2(cos(1-angle), sin(3*angle));
+        result += length(pos-uv) < size; //draw circle
+    }
+
+}
+
+return(result);

@@ -45,8 +45,10 @@ return(result);
 // 2DCircle = length(pos-uv);
 // 3DSphere = length(rayOrigin - sphereCenter) - sphereRadius;
 
-float3 rayOrigin = viewDir - worldPos;
-float3 rayStep = viewDir * 1;
+float3 rayOrigin = 1-(viewDir - worldPos);
+float3 rayStep = viewDir * -1;
+
+float3 lightDirection = normalize(lightPos);
 
 for(int i=0; i<256; i++)
 {
@@ -54,7 +56,9 @@ for(int i=0; i<256; i++)
 
     if(dist < 0.01)
     {
-        return float3(1, 0, 0);
+        float3 normal = normalize(rayOrigin - sphereCenter);
+        float diffuse = max(dot(normal, lightDirection), 0);
+        return diffuse * float3(1, 0, 0);
     }
 
     opacityMask = 1;

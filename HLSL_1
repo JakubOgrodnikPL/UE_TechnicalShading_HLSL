@@ -111,6 +111,13 @@ for (int i = 0; i< 25; i++)
 
 return inputTex;
 
+//////////////////////////////////////////////////////////
+
+float3 result = (Pick == 1.0) ? In1 :
+                (Pick == 2.0) ? In2 : 
+                (Pick == 3.0) ? In3 : float3(0,0,0);
+
+return result;
 
 
 

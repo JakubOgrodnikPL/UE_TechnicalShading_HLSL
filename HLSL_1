@@ -119,6 +119,30 @@ float3 result = (Pick == 1.0) ? In1 :
 
 return result;
 
+///////////////////////////////////////////////////////
+
+struct texDistort
+{
+    float2 texScale(float2 uv, float2 scale)
+    {
+        float2 texScale = (uv - 0.5) * + 0.5;
+        return texScale;
+    }
+
+    float2 texRotate(float2 uv, float angle)
+    {
+        float2x2 rotationMatrix = float2x2(cos(angle), sin(angle),
+                                            -sin(angle), cos(angle));
+
+        return mul(uv - 0.5, rotationMatrix) + 0.5;
+    }
+};
+texDistort txd;
+
+
+float4 color = Texture2DSample(texObject, texObjectSampler, txd.texRotate(uv, radians(360)));
+return(color);
+
 
 
 

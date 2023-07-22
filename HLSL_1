@@ -136,11 +136,23 @@ struct texDistort
 
         return mul(uv - 0.5, rotationMatrix) + 0.5;
     }
+
+    float2 texDistortion(float2 uv, float time)
+    {
+        float angle = atan2(uv.y - 0.5, uv.x - 0.5);
+        float radius = length(uv - 0.5);
+
+        float distortion = 4 * sin(3 * radius + 2 * time);
+
+        return texRotate(uv, distortion)
+    }
+
+
 };
 texDistort txd;
 
 
-float4 color = Texture2DSample(texObject, texObjectSampler, txd.texRotate(uv, radians(360)));
+float4 color = Texture2DSample(texObject, texObjectSampler, txd.texDistortion(uv, time));
 return(color);
 
 
